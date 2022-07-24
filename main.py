@@ -1,4 +1,4 @@
-from netbox_labber.utils import create_logger
+from netbox_labber.utils import create_logger, write_file, parse_args
 from netbox_labber.netbox import netbox_connect
 from netbox_labber.cml import cml_connect
 from netbox_labber import common
@@ -84,7 +84,9 @@ def main():
                     },
                 }})
 
-    logger.info(lab_config_dict)
+    if common.args.format:
+        write_file(data=lab_config_dict, file_path=f'{common.args.name}.{common.args.format}', format=common.args.format)
+
     # cml connection
     # client = cml_connect(url="https://10.10.20.161",
     #                      username="developer", password="C1sco12345")
